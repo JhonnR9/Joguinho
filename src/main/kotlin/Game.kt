@@ -1,42 +1,28 @@
-import com.sun.source.tree.WhileLoopTree
+import GameConstants.Companion.gameDimension
 import java.awt.Canvas
-import java.awt.Dimension
-import java.util.*
 import javax.swing.JFrame
 
-fun main(args: Array<String>) {
-    val game = Game()
-    val frame = JFrame()
-
-    with(frame) {
-        add(game)
-        title = "Joguinho"
-        pack()
-        setLocationRelativeTo(null)
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        isVisible = true
-    }
-
-    Thread(game).start()
-
-
-}
-
 class Game : Canvas(), Runnable {
-    companion object {
-        val WIDTH = 640
-        val HEIGHT = 360
-        val SCALE = 1.5
-        val dimension = Dimension((WIDTH * SCALE).toInt(), (HEIGHT * SCALE).toInt())
-    }
+    var frame: JFrame = JFrame()
 
     init {
-        this.preferredSize = dimension
+        initFrame()
     }
 
-    override fun run() {
-        while (true){
-            println("Chamando Game Looping!!")
-        }
+    private fun initFrame() {
+        frame.preferredSize = gameDimension
+        frame.add(this)
+        frame.isResizable = false
+        frame.setLocationRelativeTo(null)
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.isVisible = true
+        frame.pack()
+
     }
+
+
+    override fun run() {
+
+    }
+
 }
