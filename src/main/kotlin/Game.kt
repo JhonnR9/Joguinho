@@ -1,15 +1,17 @@
 import GameConstants.Companion.gameDimension
 import java.awt.Canvas
 import java.awt.Color
+import java.awt.Graphics
+import java.awt.image.BufferStrategy
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
 class Game : Canvas(), Runnable {
-    var frame: JFrame = JFrame()
-    lateinit var thread: Thread
+    private val frame: JFrame = JFrame()
+    private lateinit var thread: Thread
     private var isRunning = true
 
-    private lateinit var image: BufferedImage
+    private var image: BufferedImage
 
     init {
         initFrame()
@@ -17,6 +19,7 @@ class Game : Canvas(), Runnable {
     }
 
     private fun initFrame() {
+        frame.title = "JHones"
         frame.preferredSize = gameDimension
         frame.add(this)
         frame.isResizable = false
@@ -36,25 +39,54 @@ class Game : Canvas(), Runnable {
 
     @Synchronized
     fun stop() {
+        isRunning = false
+        thread.join()
     }
 
     private fun update() {
 
     }
 
-    private fun render() {
-        var bs = this.bufferStrategy
-        if (bs == null) {
-            this.createBufferStrategy(3)
-            return
-        }
-        var graphics = image.graphics
-        graphics.color = Color.yellow
+    private fun clearScreen(graphics: Graphics) {
+        graphics.color = Color.black
         graphics.fillRect(0, 0, width, height)
-        graphics = bs.drawGraphics
-        graphics.drawImage(image, 0, 0, width, height, null)
-        bs.show()
+    }
 
+    private fun createBufferStrategy(): BufferStrategy {
+        if (this.bufferStrategy == null) {
+            this.createBufferStrategy(3)
+        }
+        return bufferStrategy
+
+    }
+
+    private fun initializeGraphics(): Graphics {
+        return image.graphics
+    }
+
+    private fun finishGraphics(g: Graphics, bs: BufferStrategy) {
+
+        g.drawImage(image, 0, 0, width, height, null)
+        bs.show()
+    }
+
+    private fun render() {
+        val bs = createBufferStrategy()
+        var g = initializeGraphics()
+        clearScreen(g)
+        //render yours objects here
+        g.color = Color.green
+        g.fillRect(555,20,100,100)
+
+        g.color = Color.cyan
+        g.fillRect(250,20,100,100)
+
+        g.color = Color.yellow
+        g.fillOval(40,40,100,100)
+
+
+        g = bs.drawGraphics
+        finishGraphics(g, bs)
     }
 
     override fun run() {
@@ -66,7 +98,7 @@ class Game : Canvas(), Runnable {
         var timer = System.currentTimeMillis()
 
         while (isRunning) {
-            var now = System.nanoTime()
+            val now = System.nanoTime()
             delta += (now - lastTime) / ns
             lastTime = now
 
@@ -82,6 +114,8 @@ class Game : Canvas(), Runnable {
                 timer = System.currentTimeMillis()
             }
         }
+
+        stop()
     }
 
 }
