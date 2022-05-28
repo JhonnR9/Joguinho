@@ -1,4 +1,5 @@
 import GameConstants.Companion.gameDimension
+import GameConstants.Companion.scale
 import java.awt.Canvas
 import java.awt.Color
 import java.awt.Font
@@ -13,6 +14,11 @@ class Game : Canvas(), Runnable {
     private var isRunning = true
 
     private var image: BufferedImage
+    private val spritesheet: Spritesheet = Spritesheet("spritesheet.png")
+    private val player = spritesheet.Sprite(1, 1)
+
+    private var px = 0
+    var i = true
 
     init {
         initFrame()
@@ -46,10 +52,22 @@ class Game : Canvas(), Runnable {
 
     private fun update() {
 
+        if (px <= width-48 && i) {
+            px+=2
+        } else {
+            i = false
+            if (px == 0) {
+                i = true
+            } else {
+                px-=2
+            }
+        }
+
+
     }
 
     private fun clearScreen(graphics: Graphics) {
-        graphics.color = Color.black
+        graphics.color = Color.ORANGE
         graphics.fillRect(0, 0, width, height)
     }
 
@@ -66,7 +84,6 @@ class Game : Canvas(), Runnable {
     }
 
     private fun finishGraphics(g: Graphics, bs: BufferStrategy) {
-
         g.drawImage(image, 0, 0, width, height, null)
         bs.show()
     }
@@ -76,11 +93,11 @@ class Game : Canvas(), Runnable {
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
-        g.color = Color.white
-        g.font = Font("Arial",Font.BOLD,100)
-        g.drawString("Olá Mundo", 100,100)
+        g.drawImage(player, px, 50, 48, 48, null)
 
 
+        //***//
+        g.dispose()
         g = bs.drawGraphics
         finishGraphics(g, bs)
     }

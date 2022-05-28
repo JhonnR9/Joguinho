@@ -2,9 +2,10 @@ import java.awt.Dimension
 
 class GameConstants {
     companion object {
-        private const val scale = 2.5
-        private const val width = (320 * scale).toInt()
-        private const val height = (180 * scale).toInt()
+        const val scale = 2.5
+        const val width = (320 * scale).toInt()
+        const val height = (160 * scale).toInt()
+        const val tileSize = 16
         val gameDimension = Dimension(width,height)
 
 
