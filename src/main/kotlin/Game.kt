@@ -1,6 +1,7 @@
 import GameConstants.Companion.gameDimension
 import java.awt.Canvas
 import java.awt.Color
+import java.awt.Font
 import java.awt.Graphics
 import java.awt.image.BufferStrategy
 import java.awt.image.BufferedImage
@@ -75,14 +76,9 @@ class Game : Canvas(), Runnable {
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
-        g.color = Color.green
-        g.fillRect(555,20,100,100)
-
-        g.color = Color.cyan
-        g.fillRect(250,20,100,100)
-
-        g.color = Color.yellow
-        g.fillOval(40,40,100,100)
+        g.color = Color.white
+        g.font = Font("Arial",Font.BOLD,100)
+        g.drawString("Olá Mundo", 100,100)
 
 
         g = bs.drawGraphics
