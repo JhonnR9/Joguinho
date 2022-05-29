@@ -66,7 +66,7 @@ class Game: Canvas(), Runnable {
     }
 
     private fun clearScreen(graphics: Graphics) {
-        graphics.color = Color(235, 235, 235)
+        graphics.color = Color(150, 75, 0)
         graphics.fillRect(0, 0, width, height)
     }
 
@@ -86,7 +86,7 @@ class Game: Canvas(), Runnable {
         g.drawImage(image, 0, 0, width, height, null)
         bs.show()
     }
-    fun showEntities(g:Graphics){
+    private fun showEntities(g:Graphics){
         for (entity in entities) {
             entity.render(g)
         }

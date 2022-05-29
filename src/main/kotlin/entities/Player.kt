@@ -10,8 +10,8 @@ class Player(
     val spritesheet: Spritesheet,
     override var x: Int = 0,
     override var y: Int = 0,
-    override val width: Int = 48,
-    override val height: Int = 48
+    override val width: Int = 64,
+    override val height: Int = 64
 ) : Entity(sprite, x, y, width, height) {
 
 
@@ -25,6 +25,11 @@ class Player(
     var index = 0
     var maxIndex = 3
     var moved = false
+
+    private val animationLeft = Animation(spritesheet, 1, 1)
+    private val animationRight = Animation(spritesheet, 5, 1)
+    private val animationUp = Animation(spritesheet, 1, 2)
+    private val animationDown = Animation(spritesheet, 5, 2)
 
     private var dir: String = "left"
     private val speed = 2
@@ -58,12 +63,6 @@ class Player(
     }
 
     override fun render(g: Graphics) {
-        val animationLeft = Animation(spritesheet, 1, 1)
-        val animationRight = Animation(spritesheet, 5, 1)
-        val animationUp = Animation(spritesheet, 1, 2)
-        val animationDown = Animation(spritesheet, 5, 2)
-
-
         if (right) {
             g.drawImage(animationLeft.animation[index], x, y, width, height, null)
             dir = "left"
