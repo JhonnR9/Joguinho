@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
 class Game: Canvas(), Runnable {
-    private val frame: JFrame = JFrame()
+    private val jFrame: JFrame = JFrame()
     private lateinit var thread: Thread
     private var isRunning = true
 
@@ -34,14 +34,14 @@ class Game: Canvas(), Runnable {
 
 
     private fun initFrame() {
-        frame.title = "JHones"
-        frame.preferredSize = gameDimension
-        frame.add(this)
-        frame.isResizable = false
-        frame.setLocationRelativeTo(null)
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        frame.isVisible = true
-        frame.pack()
+        jFrame.title = "JHones"
+        jFrame.preferredSize = gameDimension
+        jFrame.add(this)
+        jFrame.isResizable = false
+        jFrame.setLocationRelativeTo(null)
+        jFrame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        jFrame.isVisible = true
+        jFrame.pack()
 
     }
 
@@ -86,15 +86,18 @@ class Game: Canvas(), Runnable {
         g.drawImage(image, 0, 0, width, height, null)
         bs.show()
     }
+    fun showEntities(g:Graphics){
+        for (entity in entities) {
+            entity.render(g)
+        }
+    }
 
     private fun render() {
         val bs = createBufferStrategy()
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
-        for (entity in entities) {
-            entity.render(g)
-        }
+        showEntities(g)
 
 
         //***//
@@ -109,7 +112,7 @@ class Game: Canvas(), Runnable {
         val ns = 1000000000 / amountOfTicks
         var delta = 0.0
         var frames = 0
-        var timer = System.currentTimeMillis()
+       //var timer = System.currentTimeMillis()
 
         while (isRunning) {
             val now = System.nanoTime()
@@ -122,11 +125,10 @@ class Game: Canvas(), Runnable {
                 frames++
                 delta--
             }
-            if (System.currentTimeMillis() - timer >= 1000) {
-                println("FPS: $frames")
+           /* if (System.currentTimeMillis() - timer >= 1000) {
                 frames = 0
                 timer = System.currentTimeMillis()
-            }
+            }*/
         }
 
         stop()

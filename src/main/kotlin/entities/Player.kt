@@ -53,7 +53,6 @@ class Player(
                     index = 0
                 }
 
-                println(index)
             }
         }
     }
