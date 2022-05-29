@@ -1,8 +1,7 @@
-import GameConstants.Companion.gameDimension
-import GameConstants.Companion.scale
+import constants.GameConstants.Companion.gameDimension
+import graphics.Spritesheet
 import java.awt.Canvas
 import java.awt.Color
-import java.awt.Font
 import java.awt.Graphics
 import java.awt.image.BufferStrategy
 import java.awt.image.BufferedImage
@@ -67,7 +66,7 @@ class Game : Canvas(), Runnable {
     }
 
     private fun clearScreen(graphics: Graphics) {
-        graphics.color = Color.ORANGE
+        graphics.color = Color.black
         graphics.fillRect(0, 0, width, height)
     }
 

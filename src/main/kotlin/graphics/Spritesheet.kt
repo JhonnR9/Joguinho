@@ -1,6 +1,7 @@
-import GameConstants.Companion.tileSize
+package graphics
+
+import constants.GameConstants.Companion.tileSize
 import java.awt.image.BufferedImage
-import java.io.IOException
 import javax.imageio.ImageIO
 
 class Spritesheet(path: String) {
