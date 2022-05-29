@@ -5,15 +5,15 @@ import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 
 class Spritesheet(path: String) {
-      private var spritesheet: BufferedImage = ImageIO.read(javaClass.getResource("sprites/$path"))
+      private var spritesheet: BufferedImage = ImageIO.read(javaClass.getResource("/sprites/$path"))
 
 
 
-    fun Sprite(x: Int, y: Int, width: Int, height: Int): BufferedImage {
+    fun sprite(x: Int, y: Int, width: Int, height: Int): BufferedImage {
         return spritesheet.getSubimage(x, y, width, height)
     }
 
-    fun Sprite(x: Int, y: Int): BufferedImage {
+    fun sprite(x: Int, y: Int): BufferedImage {
         return spritesheet.getSubimage(x, y, tileSize, tileSize)
     }
 }

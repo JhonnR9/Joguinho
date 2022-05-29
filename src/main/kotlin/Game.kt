@@ -1,4 +1,6 @@
 import constants.GameConstants.Companion.gameDimension
+import entities.Entity
+import entities.Player
 import graphics.Spritesheet
 import java.awt.Canvas
 import java.awt.Color
@@ -14,14 +16,20 @@ class Game : Canvas(), Runnable {
 
     private var image: BufferedImage
     private val spritesheet: Spritesheet = Spritesheet("spritesheet.png")
-    private val player = spritesheet.Sprite(1, 1)
+    private var entities: MutableList<Entity>
 
-    private var px = 0
-    var i = true
 
     init {
         initFrame()
         image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+        entities = ArrayList<Entity>()
+    }
+
+    private fun addEntities() {
+        val spritePlayer = spritesheet.sprite(1, 1)
+        val player = Player(spritePlayer, 0, 0)
+        entities.add(player)
+
     }
 
     private fun initFrame() {
@@ -41,6 +49,7 @@ class Game : Canvas(), Runnable {
         thread = Thread(this)
         isRunning = true
         thread.start()
+        addEntities()
     }
 
     @Synchronized
@@ -50,19 +59,9 @@ class Game : Canvas(), Runnable {
     }
 
     private fun update() {
-
-        if (px <= width-48 && i) {
-            px+=2
-        } else {
-            i = false
-            if (px == 0) {
-                i = true
-            } else {
-                px-=2
-            }
+        for (entity in entities) {
+            entity.update()
         }
-
-
     }
 
     private fun clearScreen(graphics: Graphics) {
@@ -92,7 +91,9 @@ class Game : Canvas(), Runnable {
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
-        g.drawImage(player, px, 50, 48, 48, null)
+        for (entity in entities) {
+            entity.render(g)
+        }
 
 
         //***//
