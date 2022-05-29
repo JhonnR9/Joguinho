@@ -22,7 +22,7 @@ class Game: Canvas(), Runnable {
 
 
     private val spritePlayer = spritesheet.sprite(1, 1)
-    private val player = Player(spritePlayer)
+    private val player = Player(spritePlayer,spritesheet)
     private val keyboard = Keyboard(player)
 
     init {
@@ -62,7 +62,7 @@ class Game: Canvas(), Runnable {
         for (entity in entities) {
             entity.update()
         }
-        player.update()
+
     }
 
     private fun clearScreen(graphics: Graphics) {

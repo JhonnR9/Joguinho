@@ -8,7 +8,6 @@ class Spritesheet(path: String) {
       private var spritesheet: BufferedImage = ImageIO.read(javaClass.getResource("/sprites/$path"))
 
 
-
     fun sprite(x: Int, y: Int, width: Int, height: Int): BufferedImage {
         return spritesheet.getSubimage(x, y, width, height)
     }
