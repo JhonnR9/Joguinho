@@ -1,7 +1,9 @@
+
 import constants.GameConstants.Companion.gameDimension
 import entities.Entity
 import entities.Player
 import graphics.Spritesheet
+import listeners.Keyboard
 import java.awt.Canvas
 import java.awt.Color
 import java.awt.Graphics
@@ -9,28 +11,27 @@ import java.awt.image.BufferStrategy
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
-class Game : Canvas(), Runnable {
+class Game: Canvas(), Runnable {
     private val frame: JFrame = JFrame()
     private lateinit var thread: Thread
     private var isRunning = true
 
     private var image: BufferedImage
     private val spritesheet: Spritesheet = Spritesheet("spritesheet.png")
-    private var entities: MutableList<Entity>
+    private var entities: MutableList<Entity> = ArrayList()
 
+
+    private val spritePlayer = spritesheet.sprite(1, 1)
+    private val player = Player(spritePlayer)
+    private val keyboard = Keyboard(player)
 
     init {
         initFrame()
         image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
-        entities = ArrayList<Entity>()
-    }
-
-    private fun addEntities() {
-        val spritePlayer = spritesheet.sprite(1, 1)
-        val player = Player(spritePlayer, 0, 0)
         entities.add(player)
-
+        addKeyListener(keyboard)
     }
+
 
     private fun initFrame() {
         frame.title = "JHones"
@@ -49,7 +50,6 @@ class Game : Canvas(), Runnable {
         thread = Thread(this)
         isRunning = true
         thread.start()
-        addEntities()
     }
 
     @Synchronized
@@ -62,10 +62,11 @@ class Game : Canvas(), Runnable {
         for (entity in entities) {
             entity.update()
         }
+        player.update()
     }
 
     private fun clearScreen(graphics: Graphics) {
-        graphics.color = Color.black
+        graphics.color = Color(235, 235, 235)
         graphics.fillRect(0, 0, width, height)
     }
 
