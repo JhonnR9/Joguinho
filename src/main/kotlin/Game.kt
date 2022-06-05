@@ -4,6 +4,7 @@ import entities.Entity
 import entities.Player
 import graphics.Spritesheet
 import listeners.Keyboard
+import world.World
 import java.awt.Canvas
 import java.awt.Color
 import java.awt.Graphics
@@ -16,14 +17,16 @@ class Game: Canvas(), Runnable {
     private lateinit var thread: Thread
     private var isRunning = true
 
+    private var world = World("lobby")
     private var image: BufferedImage
     private val spritesheet: Spritesheet = Spritesheet("spritesheet.png")
     private var entities: MutableList<Entity> = ArrayList()
 
 
-    private val spritePlayer = spritesheet.sprite(1, 1)
+    private val spritePlayer = spritesheet.getSprite(1, 1)
     private val player = Player(spritePlayer,spritesheet)
     private val keyboard = Keyboard(player)
+
 
     init {
         initFrame()
@@ -97,7 +100,9 @@ class Game: Canvas(), Runnable {
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
+        world.render(g)
         showEntities(g)
+
 
 
         //***//

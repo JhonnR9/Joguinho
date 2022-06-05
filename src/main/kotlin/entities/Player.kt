@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage
 class Player(
     private val sprite: BufferedImage,
     val spritesheet: Spritesheet,
-    override var x: Int = 0,
-    override var y: Int = 0,
+    override var x: Int = 50,
+    override var y: Int = 50,
     override val width: Int = 64,
     override val height: Int = 64
 ) : Entity(sprite, x, y, width, height) {
