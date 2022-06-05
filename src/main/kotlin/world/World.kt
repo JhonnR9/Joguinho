@@ -36,11 +36,7 @@ class World(private val path: String) {
                 xDraw = (x * tileSize)*3
                 yDraw = (y * tileSize)*3
                 id = ids[indexId].replace("\\s".toRegex(), "")
-
                 g.drawImage(tileset.getTile(id), xDraw, yDraw,48,48 ,null)
-
-
-                println("$xDraw,$yDraw,$id")
                 indexId++
 
 
