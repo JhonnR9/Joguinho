@@ -1,4 +1,3 @@
-
 import constants.GameConstants.Companion.gameDimension
 import entities.Entity
 import entities.Player
@@ -12,7 +11,7 @@ import java.awt.image.BufferStrategy
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
-class Game: Canvas(), Runnable {
+class Game : Canvas(), Runnable {
     private val jFrame: JFrame = JFrame()
     private lateinit var thread: Thread
     private var isRunning = true
@@ -24,7 +23,7 @@ class Game: Canvas(), Runnable {
 
 
     private val spritePlayer = spritesheet.getSprite(1, 1)
-    private val player = Player(spritePlayer,spritesheet)
+    private val player = Player(spritePlayer, spritesheet)
     private val keyboard = Keyboard(player)
 
 
@@ -37,14 +36,14 @@ class Game: Canvas(), Runnable {
 
 
     private fun initFrame() {
-        jFrame.title = "JHones"
+        jFrame.title = "Joguinho"
         jFrame.preferredSize = gameDimension
         jFrame.add(this)
         jFrame.isResizable = false
-        jFrame.setLocationRelativeTo(null)
         jFrame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         jFrame.isVisible = true
         jFrame.pack()
+        jFrame.setLocationRelativeTo(null)
 
     }
 
@@ -69,7 +68,7 @@ class Game: Canvas(), Runnable {
     }
 
     private fun clearScreen(graphics: Graphics) {
-        graphics.color = Color(150, 75, 0)
+        graphics.color = Color(0, 0, 0)
         graphics.fillRect(0, 0, width, height)
     }
 
@@ -89,7 +88,8 @@ class Game: Canvas(), Runnable {
         g.drawImage(image, 0, 0, width, height, null)
         bs.show()
     }
-    private fun showEntities(g:Graphics){
+
+    private fun showEntities(g: Graphics) {
         for (entity in entities) {
             entity.render(g)
         }
@@ -100,9 +100,10 @@ class Game: Canvas(), Runnable {
         var g = initializeGraphics()
         clearScreen(g)
         //render yours objects here
-        world.render(g)
-        showEntities(g)
 
+        world.render(g)
+
+        showEntities(g)
 
 
         //***//
@@ -117,7 +118,7 @@ class Game: Canvas(), Runnable {
         val ns = 1000000000 / amountOfTicks
         var delta = 0.0
         var frames = 0
-       //var timer = System.currentTimeMillis()
+        //var timer = System.currentTimeMillis()
 
         while (isRunning) {
             val now = System.nanoTime()
@@ -130,10 +131,10 @@ class Game: Canvas(), Runnable {
                 frames++
                 delta--
             }
-           /* if (System.currentTimeMillis() - timer >= 1000) {
-                frames = 0
-                timer = System.currentTimeMillis()
-            }*/
+            /* if (System.currentTimeMillis() - timer >= 1000) {
+                 frames = 0
+                 timer = System.currentTimeMillis()
+             }*/
         }
 
         stop()

@@ -8,11 +8,10 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
     private var tileFile: BufferedImage = ImageIO.read(javaClass.getResource("/tilesets/$fileName"))
     private val tiles = mutableListOf<BufferedImage>()
 
-    // private var tiles = mutableMapOf<String, BufferedImage>()
-    var isLoad = false
+    private var isLoad = false
 
     fun getTile(id: String): BufferedImage {
-        var tileId: Int = 0
+        var index: Int = 0
         val tilesetMargin = 1
         val tilesetSpacing = 1
         var xTile: Int
@@ -21,20 +20,20 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
         if (!isLoad) {
             for (y in 0 until tilesetHeight) {
                 for (x in 0 until tilesetWidth) {
-                    xTile = (x * 16) + tilesetMargin * x + tilesetSpacing
-                    yTile = (y * 16) + tilesetMargin * y + tilesetSpacing
-                    // println("$xTile, $yTile")
-                    // tiles[id] = tileFile.getSubimage(xTile, yTile, tileSize, tileSize)
-                    tiles.add(tileId, tileFile.getSubimage(xTile, yTile, tileSize, tileSize))
-                    tileId++
+                    xTile = (x * tileSize) + tilesetMargin * x + tilesetSpacing
+                    yTile = (y * tileSize) + tilesetMargin * y + tilesetSpacing
+                    tiles.add(index, tileFile.getSubimage(xTile, yTile, tileSize, tileSize))
+                    index++
 
                     if (xTile == 137 && yTile == 137) {
                         isLoad = true
                     }
+
                 }
             }
         }
 
         return tiles[id.toInt()-1]
+
     }
 }

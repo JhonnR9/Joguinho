@@ -1,13 +1,18 @@
 package constants
 
 import java.awt.Dimension
+import java.awt.Toolkit
 
 class GameConstants {
+
     companion object {
-        const val scale = 2.5
-        const val width = (320 * scale).toInt()
-        const val height = (240 * scale).toInt()
+        private val screen: Dimension = Toolkit.getDefaultToolkit().screenSize
+        private const val scale = 0.6
+        private  val width = (screen.width* scale).toInt()
+        val height = (screen.height* scale).toInt()
         const val tileSize = 16
+        const val tileWidth = 64
+        const val tileHeight = 64
         val gameDimension = Dimension(width, height)
 
 

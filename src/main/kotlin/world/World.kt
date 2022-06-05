@@ -1,6 +1,8 @@
 package world
 
+import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileSize
+import constants.GameConstants.Companion.tileWidth
 import org.xml.sax.InputSource
 import java.awt.Color.blue
 import java.awt.Graphics
@@ -33,18 +35,14 @@ class World(private val path: String) {
 
         for (y in 0 until mapHeight) {
             for (x in 0 until mapWidth) {
-                xDraw = (x * tileSize)*3
-                yDraw = (y * tileSize)*3
+                xDraw = (x * tileWidth)
+                yDraw = (y * tileHeight)
                 id = ids[indexId].replace("\\s".toRegex(), "")
-                g.drawImage(tileset.getTile(id), xDraw, yDraw,48,48 ,null)
+                g.drawImage(tileset.getTile(id), xDraw, yDraw, tileWidth, tileHeight,null)
                 indexId++
-
-
             }
-
-
-
         }
+
 
 
     }

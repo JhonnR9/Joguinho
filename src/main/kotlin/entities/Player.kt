@@ -1,5 +1,7 @@
 package entities
 
+import constants.GameConstants.Companion.tileHeight
+import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
 import graphics.Spritesheet
 import java.awt.Graphics
@@ -10,8 +12,8 @@ class Player(
     val spritesheet: Spritesheet,
     override var x: Int = 50,
     override var y: Int = 50,
-    override val width: Int = 64,
-    override val height: Int = 64
+    override val width: Int = tileWidth,
+    override val height: Int = tileHeight
 ) : Entity(sprite, x, y, width, height) {
 
 
