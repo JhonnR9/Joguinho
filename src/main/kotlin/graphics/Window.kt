@@ -6,7 +6,6 @@ import entities.Player
 import listeners.Keyboard
 import world.World
 import java.awt.*
-import java.awt.image.BufferStrategy
 import javax.swing.JFrame
 
 class Window : Canvas() {
@@ -15,7 +14,7 @@ class Window : Canvas() {
     private val entities: MutableList<Entity> = ArrayList()
     private val player = Player()
     private val keyboard = Keyboard(player)
-    //  private val bufferStrategy: BufferStrategy
+    //  val layer = MapJson()
 
     init {
         initFrame()
@@ -26,8 +25,7 @@ class Window : Canvas() {
 
     private fun initFrame() {
         val icon: Image = Toolkit.getDefaultToolkit().getImage(javaClass.getResource("/icon/icon.png"))
-
-        with(jFrame) {
+        jFrame.apply {
             title = "Rpg Game"
             iconImage = icon
             preferredSize = GameConstants.gameDimension
@@ -37,13 +35,21 @@ class Window : Canvas() {
             isVisible = true
             pack()
             setLocationRelativeTo(null)
+
         }
+
     }
 
     private fun clearScreen(graphics: Graphics) {
         graphics.apply {
             color = Color.black
             fillRect(0, 0, width, height)
+        }
+    }
+
+    private fun updateEntities() {
+        for (entity in entities) {
+            entity.update()
         }
     }
 
@@ -54,16 +60,13 @@ class Window : Canvas() {
     }
 
     fun update() {
-        for (entity in entities) {
-            entity.update()
-        }
+        updateEntities()
     }
 
     fun render() {
         bufferStrategy.drawGraphics.apply {
             clearScreen(this)
             /** render yours objects here **/
-
             world.render(this)
             showEntities(this)
 

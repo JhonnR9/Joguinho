@@ -13,6 +13,7 @@ class Game : Runnable {
         thread = Thread(this)
         isRunning = true
         thread.start()
+
     }
 
     @Synchronized

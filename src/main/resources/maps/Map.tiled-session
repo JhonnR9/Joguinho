@@ -27,7 +27,7 @@
     },
     "last.externalTilesetPath": "C:/Users/jhone/IdeaProjects/Joguinho/src/main/resources/maps",
     "last.imagePath": "C:/Users/jhone/IdeaProjects/Joguinho/src/main/resources/tilesets",
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedFormat": "json",
     "map.layerDataFormat": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
