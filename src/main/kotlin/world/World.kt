@@ -1,13 +1,9 @@
 package world
 
 import constants.GameConstants.Companion.tileHeight
-import constants.GameConstants.Companion.tileSize
 import constants.GameConstants.Companion.tileWidth
 import org.xml.sax.InputSource
-import java.awt.Color
-import java.awt.Color.blue
 import java.awt.Graphics
-import java.awt.Rectangle
 import javax.xml.parsers.SAXParserFactory
 
 class World(path: String) {
