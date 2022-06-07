@@ -3,19 +3,15 @@ package entities
 import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
-import graphics.Spritesheet
 import java.awt.Graphics
 import java.awt.image.BufferedImage
 
 class Player(
-    spritesheet: Spritesheet = Spritesheet("spritesheet.png"),
-    sprite: BufferedImage = spritesheet.getSprite(1, 1),
-    override var x: Int = 50,
-    override var y: Int = 50,
+    override var x: Int = 200,
+    override var y: Int = 200,
     override val width: Int = tileWidth,
     override val height: Int = tileHeight
-) : Entity(sprite, x, y, width, height) {
-
+) : Entity( x, y, width, height){
 
     var right = false
     var left = false
@@ -26,32 +22,21 @@ class Player(
     var maxFrame = 12
     var index = 0
     var maxIndex = 3
-    var moved = false
 
-    private val animationLeft = Animation(spritesheet, 1, 1)
-    private val animationRight = Animation(spritesheet, 5, 1)
-    private val animationUp = Animation(spritesheet, 1, 2)
-    private val animationDown = Animation(spritesheet, 5, 2)
 
-    private var dir: String = "left"
+
+    private val animationSprite = Animation("spritesheet", 9, 9)
+    private val animationLeft = animationSprite.getFrames(5, 4)
+    private val animationRight = animationSprite.getFrames(14, 4)
+    private val animationUp = animationSprite.getFrames(10, 4)
+    private val animationDown = animationSprite.getFrames(1, 4)
+
     private val speed = 2
-    override fun update() {
-        moved = false
-        if (right) {
-            moved = true
-            x += speed
-        } else if (left) {
-            moved = true
-            x -= speed
-        }
-        if (down) {
-            moved = true
-            y += speed
-        } else if (up) {
-            moved = true
-            y -= speed
-        }
-        if (moved) {
+    var playerFrame: BufferedImage = animationDown[0]
+
+
+    private fun animationIndex() {
+        if (right || left || down || up) {
             frames++
             if (frames == maxFrame) {
                 frames = 0
@@ -59,37 +44,35 @@ class Player(
                 if (index > maxIndex) {
                     index = 0
                 }
-
             }
         }
     }
 
-    override fun render(g: Graphics) {
+    private fun playerMove() {
         if (right) {
-            g.drawImage(animationLeft.animation[index], x, y, width, height, null)
-            dir = "left"
+            playerFrame = animationRight[index]
+            x += speed
         } else if (left) {
-            g.drawImage(animationRight.animation[index], x, y, width, height, null)
-            dir = "right"
+            playerFrame = animationLeft[index]
+            x -= speed
         }
-        if (up) {
-            g.drawImage(animationUp.animation[index], x, y, width, height, null)
-            dir = "up"
-        } else if (down) {
-            g.drawImage(animationDown.animation[index], x, y, width, height, null)
-            dir = "down"
+
+        if (down) {
+            playerFrame = animationDown[index]
+            y += speed
+        } else if (up) {
+            playerFrame = animationUp[index]
+            y -= speed
         }
-        if (!right || !left || !up || !down) {
-            if (dir == "left") {
-                g.drawImage(animationLeft.animation[index], x, y, width, height, null)
-            } else if (dir == "right") {
-                g.drawImage(animationRight.animation[index], x, y, width, height, null)
-            }
-            if (dir == "up") {
-                g.drawImage(animationUp.animation[index], x, y, width, height, null)
-            } else if (dir == "down") {
-                g.drawImage(animationDown.animation[index], x, y, width, height, null)
-            }
-        }
+    }
+
+    override fun update() {
+        playerMove()
+        animationIndex()
+    }
+
+    override fun render(g: Graphics) {
+        g.drawImage(playerFrame, x, y, width, height, null)
+
     }
 }
