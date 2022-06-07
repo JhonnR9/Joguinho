@@ -8,8 +8,8 @@ import java.awt.Graphics
 import java.awt.image.BufferedImage
 
 class Player(
-    private val sprite: BufferedImage,
-    val spritesheet: Spritesheet,
+    spritesheet: Spritesheet = Spritesheet("spritesheet.png"),
+    sprite: BufferedImage = spritesheet.getSprite(1, 1),
     override var x: Int = 50,
     override var y: Int = 50,
     override val width: Int = tileWidth,
