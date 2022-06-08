@@ -2,11 +2,12 @@ package world
 
 import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileWidth
+import graphics.Camera
 import org.xml.sax.InputSource
 import java.awt.Graphics
 import javax.xml.parsers.SAXParserFactory
 
-class World(path: String) {
+class World(path: String, private val camera: Camera) {
     private val loadMapXml: LoadMapXml = LoadMapXml()
     private var ids: List<String>
     private val tileset: Tileset = Tileset(9, 9, "tileset.png")
@@ -36,11 +37,11 @@ class World(path: String) {
                 xDraw = (x * tileWidth)
                 yDraw = (y * tileHeight)
                 id = ids[indexId].replace("\\s".toRegex(), "")
-                graphics.drawImage(tileset.getTile(id), xDraw, yDraw, tileWidth, tileHeight, null)
-             //   if (id == "12") {
-                  //  graphics.color = Color(0,0,250,50)
-                   // graphics.drawRect(xDraw,yDraw,tileWidth, tileHeight)
-               // }
+                graphics.drawImage(tileset.getTile(id), xDraw - camera.x, yDraw - camera.y, tileWidth, tileHeight, null)
+                //   if (id == "12") {
+                //  graphics.color = Color(0,0,250,50)
+                // graphics.drawRect(xDraw,yDraw,tileWidth, tileHeight)
+                // }
 
 
                 indexId++

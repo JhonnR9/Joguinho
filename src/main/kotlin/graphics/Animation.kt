@@ -1,6 +1,5 @@
 package graphics
 
-import constants.GameConstants
 import constants.GameConstants.Companion.tileSize
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
@@ -16,7 +15,7 @@ class Animation(
 
     fun getFrames(starAnimation: Int, sizeAnimation: Int): MutableList<BufferedImage> {
         val framesAnimation = mutableListOf<BufferedImage>()
-        var index: Int = 0
+        var index = 0
         val spritesheetMargin = 1
         val spritesheetSpace = 1
         var xFrame: Int
@@ -30,10 +29,8 @@ class Animation(
                     xFrame = (x * tileSize) + spritesheetMargin * x + spritesheetSpace
                     yFrame = (y * tileSize) + spritesheetMargin * y + spritesheetSpace
 
-                    frames.add(
-                        index,
-                        spriteFile.getSubimage(xFrame, yFrame, tileSize, tileSize)
-                    )
+                    frames.add(index,spriteFile.getSubimage(xFrame, yFrame, tileSize, tileSize))
+
                     index++
 
                     if (xFrame == maxX && yFrame == maxY) {
@@ -42,10 +39,11 @@ class Animation(
                 }
             }
         }
-        var frame = starAnimation-1
+
+        var currentFrame = starAnimation-1
         for (i in 0 until sizeAnimation) {
-            framesAnimation.add(frames[frame])
-            frame++
+            framesAnimation.add(frames[currentFrame])
+            currentFrame++
         }
         return framesAnimation
     }

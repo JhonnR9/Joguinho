@@ -10,10 +10,12 @@ import javax.swing.JFrame
 
 class Window : Canvas() {
     private val jFrame: JFrame = JFrame()
-    private val world = World("lobby")
     private val entities: MutableList<Entity> = ArrayList()
-    private val player = Player()
+    private val camera: Camera = Camera()
+    private val world = World("lobby",camera)
+    private val player = Player(camera)
     private val keyboard = Keyboard(player)
+
     //  val layer = MapJson()
 
     init {

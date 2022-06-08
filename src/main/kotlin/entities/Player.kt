@@ -1,17 +1,21 @@
 package entities
 
+import constants.GameConstants
 import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileWidth
+import constants.GameConstants.Companion.width
 import graphics.Animation
+import graphics.Camera
 import java.awt.Graphics
 import java.awt.image.BufferedImage
 
 class Player(
-    override var x: Int = 200,
-    override var y: Int = 200,
+    private val camera: Camera,
+    override var x: Int = 0,
+    override var y: Int = 0,
     override val width: Int = tileWidth,
     override val height: Int = tileHeight
-) : Entity( x, y, width, height){
+) : Entity(x, y, width, height) {
 
     var right = false
     var left = false
@@ -22,7 +26,6 @@ class Player(
     var maxFrame = 12
     var index = 0
     var maxIndex = 3
-
 
 
     private val animationSprite = Animation("spritesheet", 9, 9)
@@ -52,27 +55,33 @@ class Player(
         if (right) {
             playerFrame = animationRight[index]
             x += speed
+
         } else if (left) {
             playerFrame = animationLeft[index]
             x -= speed
+
         }
 
         if (down) {
             playerFrame = animationDown[index]
             y += speed
+
         } else if (up) {
             playerFrame = animationUp[index]
             y -= speed
+
         }
     }
 
     override fun update() {
         playerMove()
         animationIndex()
+        camera.x =  x-GameConstants.width / 2
+        camera.y =  y-GameConstants.height / 2
     }
 
     override fun render(g: Graphics) {
-        g.drawImage(playerFrame, x, y, width, height, null)
+        g.drawImage(playerFrame, x - camera.x, y - camera.y, width, height, null)
 
     }
 }
