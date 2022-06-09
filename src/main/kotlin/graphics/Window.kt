@@ -12,11 +12,9 @@ class Window : Canvas() {
     private val jFrame: JFrame = JFrame()
     private val entities: MutableList<Entity> = ArrayList()
     private val camera: Camera = Camera()
-    private val world = World("ilha",camera)
     private val player = Player(camera)
+    private val world = World("ilha", camera, player)
     private val keyboard = Keyboard(player)
-
-    //  val layer = MapJson()
 
     init {
         initFrame()
@@ -65,11 +63,18 @@ class Window : Canvas() {
         updateEntities()
     }
 
+    private fun renderWorld(graphics: Graphics) {
+        val layersSize = world.map.layers.size
+        for (i in 0 until layersSize) {
+            world.render(i, graphics)
+        }
+    }
+
     fun render() {
         bufferStrategy.drawGraphics.apply {
             clearScreen(this)
             /** render yours objects here **/
-            world.render(this)
+            renderWorld(this)
             showEntities(this)
 
             /**----------------------------**/

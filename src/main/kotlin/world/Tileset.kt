@@ -10,7 +10,7 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
 
     private var isLoad = false
 
-    fun getTile(id: String): BufferedImage {
+    fun getTile(id: Int): BufferedImage {
         var index: Int = 0
         val tilesetMargin = 0
         val tilesetSpacing = 0
@@ -25,7 +25,7 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
                 for (x in 0 until tilesetWidth) {
                     xTile = (x * tileSize) + tilesetMargin * x + tilesetSpacing
                     yTile = (y * tileSize) + tilesetMargin * y + tilesetSpacing
-                    tiles.add(index, tileFile.getSubimage(xTile, yTile, tileSize, tileSize))
+                   tiles.add(index, tileFile.getSubimage(xTile, yTile, tileSize, tileSize))
                     index++
 
                     if (xTile == maxX && yTile == maxY) {
@@ -36,7 +36,8 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
             }
         }
 
-        return tiles[id.toInt() - 1]
+        return tiles[id - 1]
 
     }
+
 }

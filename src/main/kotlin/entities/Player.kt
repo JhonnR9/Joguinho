@@ -1,7 +1,9 @@
 package entities
 
 import constants.GameConstants
+import constants.GameConstants.Companion.spritesheetSize
 import constants.GameConstants.Companion.tileHeight
+import constants.GameConstants.Companion.tileSize
 import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
 import graphics.Camera
@@ -12,8 +14,8 @@ class Player(
     private val camera: Camera,
     override var x: Int = 0,
     override var y: Int = 0,
-    override val width: Int = tileWidth,
-    override val height: Int = tileHeight
+    override val width: Int = spritesheetSize,
+    override val height: Int = spritesheetSize
 ) : Entity(x, y, width, height) {
 
     var right = false
@@ -24,14 +26,14 @@ class Player(
     var frames = 0
     var maxFrame = 12
     var index = 0
-    var maxIndex = 3
+    var maxIndex = 8
 
 
-    private val animationSprite = Animation("spritesheet", 9, 9)
-    private val animationLeft = animationSprite.getFrames(5, 4)
-    private val animationRight = animationSprite.getFrames(14, 4)
-    private val animationUp = animationSprite.getFrames(10, 4)
-    private val animationDown = animationSprite.getFrames(1, 4)
+    private val animationSprite = Animation("SpritesheetMan", 9, 4, 0, 0)
+    private val animationLeft = animationSprite.getFrames(10, 9)
+    private val animationRight = animationSprite.getFrames(28, 9)
+    private val animationUp = animationSprite.getFrames(1, 9)
+    private val animationDown = animationSprite.getFrames(19, 9)
 
     private val speed = 2
     var playerFrame: BufferedImage = animationDown[0]
@@ -75,8 +77,9 @@ class Player(
     override fun update() {
         playerMove()
         animationIndex()
-       camera.x =  x-GameConstants.width / 2
-        camera.y =  y-GameConstants.height / 2
+        camera.x = x - GameConstants.width / 2
+        camera.y = y - GameConstants.height / 2
+        println(x)
     }
 
     override fun render(g: Graphics) {
