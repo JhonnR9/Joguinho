@@ -12,7 +12,7 @@ class Window : Canvas() {
     private val jFrame: JFrame = JFrame()
     private val entities: MutableList<Entity> = ArrayList()
     private val camera: Camera = Camera()
-    private val world = World("lobby",camera)
+    private val world = World("ilha",camera)
     private val player = Player(camera)
     private val keyboard = Keyboard(player)
 
@@ -71,7 +71,6 @@ class Window : Canvas() {
             /** render yours objects here **/
             world.render(this)
             showEntities(this)
-
 
             /**----------------------------**/
             dispose()

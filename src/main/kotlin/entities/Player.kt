@@ -3,7 +3,6 @@ package entities
 import constants.GameConstants
 import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileWidth
-import constants.GameConstants.Companion.width
 import graphics.Animation
 import graphics.Camera
 import java.awt.Graphics
@@ -76,7 +75,7 @@ class Player(
     override fun update() {
         playerMove()
         animationIndex()
-        camera.x =  x-GameConstants.width / 2
+       camera.x =  x-GameConstants.width / 2
         camera.y =  y-GameConstants.height / 2
     }
 
