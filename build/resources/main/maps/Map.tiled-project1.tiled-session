@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Terrian.tsx",
+    "activeFile": "lobby.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
@@ -23,6 +23,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "enemies.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "ilha.xml": {
             "scale": 1.5,
             "selectedLayer": 0,
@@ -33,10 +37,10 @@
         },
         "lobby.json": {
             "scale": 1.5,
-            "selectedLayer": 0,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 185.99999999999997,
-                "y": 554
+                "x": 183.33333333333331,
+                "y": 252.33333333333331
             }
         },
         "lobby.xml": {
@@ -66,8 +70,9 @@
     ],
     "project": "Map.tiled-project1.tiled-project",
     "recentFiles": [
-        "lobby.json",
         "Terrian.tsx",
+        "lobby.json",
+        "enemies.tsj",
         "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets/SpritesheetMan.tsj",
         "ilha.xml",
         "lobby.xml",
@@ -80,7 +85,7 @@
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.tileSize": {
-        "height": 64,
-        "width": 64
+        "height": 16,
+        "width": 16
     }
 }

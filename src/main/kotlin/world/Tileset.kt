@@ -4,6 +4,7 @@ import constants.GameConstants.Companion.tileSize
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 
+@Suppress("KotlinConstantConditions")
 class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fileName: String) {
     private var tileFile: BufferedImage = ImageIO.read(javaClass.getResource("/tilesets/$fileName"))
     private val tiles = mutableListOf<BufferedImage>()
@@ -11,7 +12,7 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
     private var isLoad = false
 
     fun getTile(id: Int): BufferedImage {
-        var index: Int = 0
+        var index = 0
         val tilesetMargin = 0
         val tilesetSpacing = 0
         var xTile: Int
@@ -36,7 +37,7 @@ class Tileset(private val tilesetWidth: Int, private val tilesetHeight: Int, fil
             }
         }
 
-        return tiles[id - 1]
+        return tiles[id-1]
 
     }
 

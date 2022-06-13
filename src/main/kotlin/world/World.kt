@@ -1,25 +1,31 @@
 package world
 
-import constants.GameConstants
 import constants.GameConstants.Companion.height
 import constants.GameConstants.Companion.tileHeight
-import constants.GameConstants.Companion.tileSize
 import constants.GameConstants.Companion.tileWidth
 import constants.GameConstants.Companion.width
-import entities.Player
+import entities.*
 import graphics.Camera
-import org.xml.sax.InputSource
 import world.json.JsonReading
 import java.awt.Graphics
-import javax.xml.parsers.SAXParserFactory
+import java.awt.image.BufferedImage
 
-class World(path: String, private val camera: Camera, private val player: Player) {
+class World(private val camera: Camera, private val entities: MutableList<Entity>, private val player: Player) {
     private val jsonReading =
         JsonReading("C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/maps/lobby.json")
     val map = jsonReading.map
-    var entitiesAdd = false
+    var isAddEntities = false
 
     private val tileset: Tileset = Tileset(16, 16, "Terrain.png")
+
+    private fun drawTile(graphics: Graphics, sprite: BufferedImage, xDraw: Int, yDraw: Int) {
+        graphics.drawImage(sprite, xDraw, yDraw, tileWidth, tileHeight, null)
+    }
+
+    fun update() {
+        camera.x = camera.clamp(player.x - (width / 2), 0, map.width * tileWidth + 16 - width)
+        camera.y = camera.clamp(player.y - (height / 2), 0, map.height * tileHeight + 42 - height)
+    }
 
     fun render(index: Int, graphics: Graphics) {
         val ids = jsonReading.map.layers[index].data
@@ -29,58 +35,46 @@ class World(path: String, private val camera: Camera, private val player: Player
         val mapHeight = map.layers[index].height
         var indexId = 0
         val layerName: String = map.layers[index].name
+        var isVisible: Boolean
 
-        val cameraPositionXStart: Int = camera.x / tileSize
-        val cameraPositionYStart: Int = camera.y / tileSize
-        var cameraFinalPositionX = cameraPositionXStart + (width / tileSize)
-        var cameraFinalPositionY = cameraPositionYStart + (height / tileSize)
 
         for (y in 0 until mapHeight) {
             for (x in 0 until mapWidth) {
+                xDraw = (x * tileWidth) - camera.x
+                yDraw = (y * tileHeight) - camera.y
 
-                xDraw = (x * tileWidth)
-                yDraw = (y * tileHeight)
-
-                if (!entitiesAdd) {
-                    if (layerName == "entities") {
+                if (layerName == "entities") {
+                    if (!isAddEntities) {
                         when (ids[indexId]) {
-                            70 -> {
+                            244 -> {
                                 //player
-                                player.x = xDraw
-                                player.y = yDraw
-                                entitiesAdd = true
+                                player.x = xDraw + camera.x
+                                player.y = yDraw + camera.y
+
                             }
+                            241 -> {
+                                //enemy
+                                entities.add(Enemy(xDraw, yDraw, tileset.getTile(ids[indexId]), camera))
+                            }
+                            242 -> {
+                                //life
+                                entities.add(LifePacker(xDraw, yDraw, tileset.getTile(ids[indexId]), camera))
+                            }
+                            243 -> {
+                                //bullet
+                                entities.add(Bullet(xDraw, yDraw, tileset.getTile(ids[indexId]), camera))
+                            }
+
+                        }
+                        if (indexId == mapHeight * mapWidth-1) {
+                            isAddEntities = true
                         }
                     }
-                }
-
-                if (ids[indexId] != 0 && layerName == "floor_details") {
-                    graphics.drawImage(
-                        tileset.getTile(ids[indexId]),
-                        xDraw - camera.x,
-                        yDraw - camera.y,
-                        tileWidth,
-                        tileHeight,
-                        null
-                    )
-                } else if (ids[indexId] != 0 && layerName == "wall") {
-                    graphics.drawImage(
-                        tileset.getTile(ids[indexId]),
-                        xDraw - camera.x,
-                        yDraw - camera.y,
-                        tileWidth,
-                        tileHeight,
-                        null
-                    )
-                } else if (ids[indexId] != 0 && layerName == "floor") {
-                    graphics.drawImage(
-                        tileset.getTile(ids[indexId]),
-                        xDraw - camera.x,
-                        yDraw - camera.y,
-                        tileWidth,
-                        tileHeight,
-                        null
-                    )
+                } else if (ids[indexId] != 0) {
+                    isVisible = (xDraw > -tileWidth && yDraw > -tileHeight && xDraw < width && yDraw < height)
+                    if (isVisible) {
+                        drawTile(graphics, tileset.getTile(ids[indexId]), xDraw, yDraw)
+                    }
                 }
                 indexId++
             }

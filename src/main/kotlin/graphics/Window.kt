@@ -6,19 +6,19 @@ import entities.Player
 import listeners.Keyboard
 import world.World
 import java.awt.*
+import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
 class Window : Canvas() {
     private val jFrame: JFrame = JFrame()
     private val entities: MutableList<Entity> = ArrayList()
     private val camera: Camera = Camera()
-    private val player = Player(camera)
-    private val world = World("ilha", camera, player)
+    private val player = Player(BufferedImage(32,32, BufferedImage.TYPE_INT_RGB),0,0,camera)
+    private val world = World( camera, entities,player)
     private val keyboard = Keyboard(player)
 
     init {
         initFrame()
-        entities.add(player)
         addKeyListener(keyboard)
         createBufferStrategy(3)
     }
@@ -30,7 +30,7 @@ class Window : Canvas() {
             iconImage = icon
             preferredSize = GameConstants.gameDimension
             add(this@Window)
-            isResizable = false
+            isResizable = true
             defaultCloseOperation = JFrame.EXIT_ON_CLOSE
             isVisible = true
             pack()
@@ -61,6 +61,8 @@ class Window : Canvas() {
 
     fun update() {
         updateEntities()
+        world.update()
+        player.update()
     }
 
     private fun renderWorld(graphics: Graphics) {
@@ -76,6 +78,7 @@ class Window : Canvas() {
             /** render yours objects here **/
             renderWorld(this)
             showEntities(this)
+            player.render(this)
 
             /**----------------------------**/
             dispose()

@@ -1,22 +1,20 @@
 package entities
 
-import constants.GameConstants
 import constants.GameConstants.Companion.spritesheetSize
-import constants.GameConstants.Companion.tileHeight
-import constants.GameConstants.Companion.tileSize
-import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
 import graphics.Camera
 import java.awt.Graphics
 import java.awt.image.BufferedImage
 
 class Player(
-    private val camera: Camera,
+    override var sprite: BufferedImage,
     override var x: Int = 0,
     override var y: Int = 0,
-    override val width: Int = spritesheetSize,
-    override val height: Int = spritesheetSize
-) : Entity(x, y, width, height) {
+    override val camera: Camera
+) : Entity(x, y, sprite,camera) {
+    override var width = spritesheetSize
+    override val height = spritesheetSize
+
 
     var right = false
     var left = false
@@ -35,8 +33,10 @@ class Player(
     private val animationUp = animationSprite.getFrames(1, 9)
     private val animationDown = animationSprite.getFrames(19, 9)
 
-    private val speed = 2
-    var playerFrame: BufferedImage = animationDown[0]
+    private val speed = 5
+    init {
+        sprite = animationDown[0]
+    }
 
 
     private fun animationIndex() {
@@ -54,21 +54,21 @@ class Player(
 
     private fun playerMove() {
         if (right) {
-            playerFrame = animationRight[index]
+            sprite = animationRight[index]
             x += speed
 
         } else if (left) {
-            playerFrame = animationLeft[index]
+            sprite = animationLeft[index]
             x -= speed
 
         }
 
         if (down) {
-            playerFrame = animationDown[index]
+            sprite = animationDown[index]
             y += speed
 
         } else if (up) {
-            playerFrame = animationUp[index]
+            sprite = animationUp[index]
             y -= speed
 
         }
@@ -77,13 +77,10 @@ class Player(
     override fun update() {
         playerMove()
         animationIndex()
-        camera.x = x - GameConstants.width / 2
-        camera.y = y - GameConstants.height / 2
-        println(x)
     }
 
     override fun render(g: Graphics) {
-        g.drawImage(playerFrame, x - camera.x, y - camera.y, width, height, null)
+        g.drawImage(sprite, x - camera.x, y - camera.y, width, height, null)
 
     }
 }
