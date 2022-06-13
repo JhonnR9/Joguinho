@@ -1,25 +1,27 @@
 package entities
 
 import constants.GameConstants.Companion.spritesheetSize
+import constants.GameConstants.Companion.tileHeight
+import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
 import graphics.Camera
+import java.awt.Color
 import java.awt.Graphics
-import java.awt.image.BufferedImage
+import java.awt.Rectangle
 
 class Player(
-    override var sprite: BufferedImage,
     override var x: Int = 0,
     override var y: Int = 0,
-    override val camera: Camera
-) : Entity(x, y, sprite,camera) {
+    override val camera: Camera,
+) : Entity(x, y, camera) {
     override var width = spritesheetSize
     override val height = spritesheetSize
-
 
     var right = false
     var left = false
     var up = false
     var down = false
+
 
     var frames = 0
     var maxFrame = 12
@@ -33,7 +35,9 @@ class Player(
     private val animationUp = animationSprite.getFrames(1, 9)
     private val animationDown = animationSprite.getFrames(19, 9)
 
-    private val speed = 5
+    val speed = 5
+    var collider: Boolean = false
+
     init {
         sprite = animationDown[0]
     }
@@ -53,21 +57,21 @@ class Player(
     }
 
     private fun playerMove() {
-        if (right) {
+        if (right ) {
             sprite = animationRight[index]
             x += speed
 
-        } else if (left) {
+        } else if (left ) {
             sprite = animationLeft[index]
             x -= speed
 
         }
 
-        if (down) {
+        if (down ) {
             sprite = animationDown[index]
             y += speed
 
-        } else if (up) {
+        } else if (up ) {
             sprite = animationUp[index]
             y -= speed
 
@@ -77,10 +81,15 @@ class Player(
     override fun update() {
         playerMove()
         animationIndex()
+
     }
+
 
     override fun render(g: Graphics) {
         g.drawImage(sprite, x - camera.x, y - camera.y, width, height, null)
+        g.color = Color(250, 0, 0, 70)
+       // g.fillRect(x - camera.x, y - camera.y, width, height)
+
 
     }
 }

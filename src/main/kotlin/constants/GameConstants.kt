@@ -1,5 +1,6 @@
 package constants
 
+import world.json.JsonReading
 import java.awt.Dimension
 import java.awt.Toolkit
 
@@ -14,8 +15,9 @@ class GameConstants {
         const val tileWidth = 64
         const val tileHeight = 64
         val gameDimension = Dimension(width, height)
-
+        val jsonReading = JsonReading("C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/maps/lobby.json")
 
     }
+
 
 }

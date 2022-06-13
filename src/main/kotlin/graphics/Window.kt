@@ -11,11 +11,9 @@ import javax.swing.JFrame
 
 class Window : Canvas() {
     private val jFrame: JFrame = JFrame()
-    private val entities: MutableList<Entity> = ArrayList()
-    private val camera: Camera = Camera()
-    private val player = Player(BufferedImage(32,32, BufferedImage.TYPE_INT_RGB),0,0,camera)
-    private val world = World( camera, entities,player)
-    private val keyboard = Keyboard(player)
+
+    private val world = World()
+    private val keyboard = Keyboard(world.player)
 
     init {
         initFrame()
@@ -47,38 +45,18 @@ class Window : Canvas() {
         }
     }
 
-    private fun updateEntities() {
-        for (entity in entities) {
-            entity.update()
-        }
-    }
 
-    private fun showEntities(graphics: Graphics) {
-        for (entity in entities) {
-            entity.render(graphics)
-        }
-    }
 
     fun update() {
-        updateEntities()
         world.update()
-        player.update()
     }
 
-    private fun renderWorld(graphics: Graphics) {
-        val layersSize = world.map.layers.size
-        for (i in 0 until layersSize) {
-            world.render(i, graphics)
-        }
-    }
 
     fun render() {
         bufferStrategy.drawGraphics.apply {
             clearScreen(this)
             /** render yours objects here **/
-            renderWorld(this)
-            showEntities(this)
-            player.render(this)
+            world.render(this)
 
             /**----------------------------**/
             dispose()

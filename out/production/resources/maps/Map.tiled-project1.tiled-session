@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "ilha.xml",
+    "activeFile": "lobby.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
@@ -15,7 +15,15 @@
             "scaleInDock": 1,
             "scaleInEditor": 3
         },
+        "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets/SpritesheetMan.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Terrian.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "enemies.tsj": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -25,6 +33,14 @@
             "viewCenter": {
                 "x": 186.66666666666663,
                 "y": 107.66666666666664
+            }
+        },
+        "lobby.json": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 183.33333333333331,
+                "y": 252.33333333333331
             }
         },
         "lobby.xml": {
@@ -41,20 +57,23 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/maps",
-    "last.imagePath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets",
+    "last.imagePath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/sprites",
     "map.height": 30,
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedFormat": "json",
     "map.layerDataFormat": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
-        "ilha.xml",
+        "lobby.json",
         "Terrian.tsx"
     ],
     "project": "Map.tiled-project1.tiled-project",
     "recentFiles": [
         "Terrian.tsx",
+        "lobby.json",
+        "enemies.tsj",
+        "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets/SpritesheetMan.tsj",
         "ilha.xml",
         "lobby.xml",
         "tileset.tsx",
@@ -62,7 +81,7 @@
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Ficheiros Tiled tileset (*.tsx *.xml)",
-    "tileset.lastUsedFormat": "tsx",
+    "tileset.lastUsedFormat": "json",
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.tileSize": {

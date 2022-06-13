@@ -36,11 +36,11 @@
             }
         },
         "lobby.json": {
-            "scale": 1.5,
-            "selectedLayer": 3,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 183.33333333333331,
-                "y": 252.33333333333331
+                "x": 255,
+                "y": 297.75
             }
         },
         "lobby.xml": {
