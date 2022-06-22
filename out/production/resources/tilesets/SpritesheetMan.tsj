@@ -1,0 +1,14 @@
+{ "columns":9,
+ "image":"..\/sprites\/SpritesheetMan.png",
+ "imageheight":256,
+ "imagewidth":576,
+ "margin":0,
+ "name":"SpritesheetMan",
+ "spacing":0,
+ "tilecount":36,
+ "tiledversion":"1.8.5",
+ "tileheight":64,
+ "tilewidth":64,
+ "type":"tileset",
+ "version":"1.8"
+}
