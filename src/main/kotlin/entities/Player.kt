@@ -5,6 +5,7 @@ import constants.GameConstants.Companion.tileHeight
 import constants.GameConstants.Companion.tileWidth
 import graphics.Animation
 import graphics.Camera
+import world.CollisionTiles
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Rectangle
@@ -13,9 +14,11 @@ class Player(
     override var x: Int = 0,
     override var y: Int = 0,
     override val camera: Camera,
+    private val collision: CollisionTiles
 ) : Entity(x, y, camera) {
     override var width = spritesheetSize
     override val height = spritesheetSize
+
 
     var right = false
     var left = false
@@ -35,8 +38,7 @@ class Player(
     private val animationUp = animationSprite.getFrames(1, 9)
     private val animationDown = animationSprite.getFrames(19, 9)
 
-    val speed = 5
-    var collider: Boolean = false
+    private val speed = 3
 
     init {
         sprite = animationDown[0]
@@ -57,21 +59,21 @@ class Player(
     }
 
     private fun playerMove() {
-        if (right ) {
+        if (right && collision.isFree(x + speed, y)) {
             sprite = animationRight[index]
             x += speed
 
-        } else if (left ) {
+        } else if (left && collision.isFree(x - speed, y)) {
             sprite = animationLeft[index]
             x -= speed
 
         }
 
-        if (down ) {
+        if (down && collision.isFree(x, y + speed)) {
             sprite = animationDown[index]
             y += speed
 
-        } else if (up ) {
+        } else if (up && collision.isFree(x, y - speed)) {
             sprite = animationUp[index]
             y -= speed
 
@@ -88,7 +90,7 @@ class Player(
     override fun render(g: Graphics) {
         g.drawImage(sprite, x - camera.x, y - camera.y, width, height, null)
         g.color = Color(250, 0, 0, 70)
-       // g.fillRect(x - camera.x, y - camera.y, width, height)
+     //  g.fillRect(x - camera.x, y - camera.y, width, height)
 
 
     }

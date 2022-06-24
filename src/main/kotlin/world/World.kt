@@ -17,10 +17,10 @@ import kotlin.Boolean as Boolean
 class World() {
     private val camera: Camera = Camera()
     private val map = jsonReading.map
-    private val tiles: MutableList<Tile> = ArrayList()
     private val entities: MutableList<Entity> = ArrayList()
-
-    val player = Player(0, 0, camera)
+    private val tiles = mutableMapOf<List<Int>, Tile>()
+    private val collisionTiles = CollisionTiles(tiles)
+    val player = Player(0, 0, camera, collisionTiles)
 
     private val tileset: Tileset = Tileset(16, 16, "Terrain.png")
 
@@ -30,42 +30,52 @@ class World() {
     }
 
     private fun createMap() {
-        val points = mutableListOf<List<Int>>()
-
-        for (y in 0 until map.height) {
-            for (x in 0 until map.width) {
-                points.add(listOf(y, x))
-
-            }
-        }
-
-        for (layer in map.layers) {
+        for ((j, layer) in map.layers.withIndex()) {
             if (layer.name == "floor") {
+                var i = 0
+                for (y in 0 until map.height) {
+                    for (x in 0 until map.width) {
+                        if (layer.data[i] != 0) {
+                            tiles[listOf(y, x, i)] = Tile(listOf(y, x), tileset.getTile(layer.data[i]), camera)
+                        }
+                        i++
 
-                for ((i, point) in points.withIndex()) {
-                    if (layer.data[i] != 0) {
-                        tiles.add(Tile(point, tileset.getTile(layer.data[i]), camera))
                     }
                 }
             }
             if (layer.name == "floor_details") {
-                for ((i, point) in points.withIndex()) {
-                    if (layer.data[i] != 0) {
-                        tiles.add(Tile(point, tileset.getTile(layer.data[i]), camera))
+                var i = 0
+                for (y in 0 until map.height) {
+                    for (x in 0 until map.width) {
+                        if (layer.data[i] != 0) {
+                            tiles[listOf(y, x, j)] = Tile(listOf(y, x), tileset.getTile(layer.data[i]), camera)
+                        }
+                        i++
+
                     }
                 }
             }
             if (layer.name == "tile_collider") {
-                for ((i, point) in points.withIndex()) {
-                    if (layer.data[i] != 0) {
-                        tiles.add(TileCollider(point, tileset.getTile(layer.data[i]), camera))
+                var i = 0
+                for (y in 0 until map.height) {
+                    for (x in 0 until map.width) {
+                        if (layer.data[i] != 0) {
+                            tiles[listOf(y, x, j)] = TileCollider(listOf(y, x), tileset.getTile(layer.data[i]), camera)
+                        }
+                        i++
+
                     }
                 }
             }
             if (layer.name == "entities") {
-                for ((i, point) in points.withIndex()) {
-                    if (layer.data[i] != 0) {
-                        addEntities(layer.data[i], point)
+                var i = 0
+                for (y in 0 until map.height) {
+                    for (x in 0 until map.width) {
+                        if (layer.data[i] != 0) {
+                            addEntities(layer.data[i], listOf(y, x))
+                        }
+                        i++
+
                     }
                 }
             }
@@ -125,34 +135,12 @@ class World() {
 
     }
 
-    private fun isCollider(tile: Tile, graphics: Graphics) {
-        if (tile is TileCollider) {
-            graphics.color = Color(0, 200, 200, 40)
-          //  graphics.fillRect(tile.xDraw - camera.x, tile.yDraw - camera.y, 64, 64)
-            if (tile.intersects(player)) {
-                if (player.left) {
-                    player.x += player.speed
-                } else if (player.right) {
-                    player.x -= player.speed
-                }
-                if (player.up) {
-                    player.y += player.speed
-                } else if (player.down) {
-                    player.y -= player.speed
-                }
-            }
-        }
-    }
-
-
     private fun renderTiles(graphics: Graphics) {
         for (tile in tiles) {
-            if (isVisible(tile.xDraw - camera.x, tile.yDraw - camera.y)) {
-                if (tile !is TileCollider){
-                    tile.render(graphics)
+            if (isVisible(tile.value.xDraw - camera.x, tile.value.yDraw - camera.y)) {
+                if (tile.value !is TileCollider) {
+                    tile.value.render(graphics)
                 }
-
-                isCollider(tile, graphics)
             }
         }
     }
@@ -160,6 +148,7 @@ class World() {
     fun render(graphics: Graphics) {
         renderTiles(graphics)
         renderEntities(graphics)
+
 
     }
 }

@@ -15,6 +15,10 @@
             "scaleInDock": 1,
             "scaleInEditor": 3
         },
+        "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/sprites/tileset_game.json": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
         "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets/SpritesheetMan.tsj": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -35,12 +39,20 @@
                 "y": 107.66666666666664
             }
         },
-        "lobby.json": {
-            "scale": 2,
-            "selectedLayer": 2,
+        "level1.json": {
+            "scale": 4,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 255,
-                "y": 297.75
+                "x": 101.75,
+                "y": 27.875
+            }
+        },
+        "lobby.json": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 202,
+                "y": 318.5
             }
         },
         "lobby.xml": {
@@ -57,21 +69,22 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/maps",
-    "last.imagePath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/sprites",
-    "map.height": 30,
+    "last.imagePath": "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets",
+    "map.height": 18,
     "map.lastUsedFormat": "json",
     "map.layerDataFormat": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 30,
+    "map.width": 18,
     "openFiles": [
-        "lobby.json",
-        "Terrian.tsx"
+        "lobby.json"
     ],
     "project": "Map.tiled-project1.tiled-project",
     "recentFiles": [
-        "Terrian.tsx",
         "lobby.json",
+        "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/sprites/tileset_game.json",
+        "level1.json",
+        "Terrian.tsx",
         "enemies.tsj",
         "C:/Users/jhone/IdeaProjects/Zelda-Clone-with-Kotlin/src/main/resources/tilesets/SpritesheetMan.tsj",
         "ilha.xml",

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Terrian.tsx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
@@ -41,7 +41,6 @@
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
-        "Terrian.tsx"
     ],
     "project": "Map.tiled-project",
     "recentFiles": [
